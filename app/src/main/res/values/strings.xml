@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">HadChoise 0.1</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_info_screen">InfoScreen</string>
+    <string name="title_activity_add_screen">AddScreen</string>
+    <string name="title_activity_del_screen">DelScreen</string>
+</resources>
