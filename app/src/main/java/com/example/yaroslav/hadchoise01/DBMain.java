@@ -63,4 +63,47 @@ public class DBMain extends SQLiteOpenHelper {
         Cursor res = db.rawQuery("select * from " + MAIN_TABLE, null);
         return res;
     }
+    public int getCount(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from " + MAIN_TABLE, null);
+        boolean hasMoreNames = res.moveToFirst();
+        int i = 0;
+        while(hasMoreNames){
+            i++;
+            hasMoreNames = res.moveToNext();
+        }
+        return i;
+    }
+
+    public Integer deleteData(String name){
+        SQLiteDatabase db = this.getWritableDatabase();
+        //int i = (Integer)(db.execSQL("select id from "+MAIN_TABLE+" where name = " + name));
+        return db.delete(MAIN_TABLE, "ID = ?", new String[] { name });
+    }
+    Cursor getItems(String id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from " + SEC_TABLE + " WHERE ASSOC_ID = " + id, null);
+        return res;
+    }
+    public int getCountItems(String id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from " + SEC_TABLE + " WHERE ASSOC_ID = " + id, null);
+        boolean hasMoreNames = res.moveToFirst();
+        int i = 0;
+        while (hasMoreNames) {
+            i++;
+            hasMoreNames = res.moveToNext();
+        }
+        return i;
+    }
+    public boolean updateScore(String name, String id, int score){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_SEC_3, id);
+        contentValues.put(COL_SEC_2, name);
+        contentValues.put(COL_SEC_4, score);
+        db.update(SEC_TABLE, contentValues, "ASSOC_ID =  " + id + " AND NAME = " + name, null);
+        return true;
+    }
+
 }

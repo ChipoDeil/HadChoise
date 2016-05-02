@@ -12,10 +12,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Arrays;
 
@@ -29,11 +31,12 @@ public class MainScreen extends AppCompatActivity {
     Intent intentAdd = null;
     Intent intentDel = null;
     Intent intentInfo = null;
-    ListView namesView = null;
+    Intent intentSelect = null;
+    ListView namesList = null;
     DBMain db = null;
-    String[] names;
     TextView tv = null;
-    int i;
+    int i = 0;
+    ArrayAdapter<String> namesAdapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,7 @@ public class MainScreen extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
         showNames();
         listeners();
     }
@@ -137,7 +141,7 @@ public class MainScreen extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                startActivity(intentInfo);
+                showNames();
             }
 
             @Override
@@ -146,18 +150,49 @@ public class MainScreen extends AppCompatActivity {
             }
         });
     }
+    String[] names;
     public void showNames(){
         db = new DBMain(this);
         Cursor res = db.getNames();
+        namesList = (ListView)findViewById(R.id.namesList);
+        names = new String[db.getCount()];
+        i = 0;
         boolean hasMoreNames = res.moveToFirst();
-        int i = 0;
         while(hasMoreNames){
             names[i] = res.getString(res.getColumnIndex("NAME"));
             hasMoreNames = res.moveToNext();
             i++;
         }
-        tv = (TextView)findViewById(R.id.textView5);
-        tv.setText(i + " ");
+        namesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, names);
+        namesList.setAdapter(namesAdapter);
+        namesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String name = namesAdapter.getItem(position);
+                //Toast.makeText(MainScreen.this, name, Toast.LENGTH_LONG).show();
+                intentSelect = new Intent(MainScreen.this, SelectSreen.class);
+                intentSelect.putExtra("testName", name);
+                startActivity(intentSelect);
+            }
+        });
 
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        showNames();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        showNames();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showNames();
     }
 }

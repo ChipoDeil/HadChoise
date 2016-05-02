@@ -9,34 +9,32 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.yaroslav.hadchoise01.DelScreen"
-    tools:showIn="@layout/activity_del_screen">
+    tools:context="com.example.yaroslav.hadchoise01.SelectSreen"
+    tools:showIn="@layout/activity_select_sreen">
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Удалить тест:"
-        android:id="@+id/textView5"
+        android:text=""
+        android:id="@+id/nameTest"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Назад"
-        android:id="@+id/backDel"
-        android:layout_marginBottom="51dp"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
     <ListView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/delList"
-        android:layout_below="@+id/textView5"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/backDel" />
+        android:layout_height="300dp"
+        android:id="@+id/itemsList"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/nameTest" />
 
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Пройти тест"
+        android:id="@+id/startTest"
+        android:layout_below="@+id/itemsList"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="62dp" />
 </RelativeLayout>

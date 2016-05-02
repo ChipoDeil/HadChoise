@@ -1,7 +1,9 @@
 <resources>
-    <string name="app_name">HadChoise 0.1</string>
+    <string name="app_name">HardChoice</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_info_screen">InfoScreen</string>
     <string name="title_activity_add_screen">AddScreen</string>
     <string name="title_activity_del_screen">DelScreen</string>
+    <string name="title_activity_select_sreen">SelectSreen</string>
+    <string name="title_activity_process_screen">ProcessScreen</string>
 </resources>
