@@ -78,7 +78,7 @@ public class DBMain extends SQLiteOpenHelper {
     public Integer deleteData(String name){
         SQLiteDatabase db = this.getWritableDatabase();
         //int i = (Integer)(db.execSQL("select id from "+MAIN_TABLE+" where name = " + name));
-        return db.delete(MAIN_TABLE, "ID = ?", new String[] { name });
+        return db.delete(MAIN_TABLE, "NAME = ?", new String[] { name });
     }
     Cursor getItems(String id){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -96,13 +96,30 @@ public class DBMain extends SQLiteOpenHelper {
         }
         return i;
     }
-    public boolean updateScore(String name, String id, int score){
+    public boolean updateScore(String id, int score){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_SEC_3, id);
-        contentValues.put(COL_SEC_2, name);
         contentValues.put(COL_SEC_4, score);
-        db.update(SEC_TABLE, contentValues, "ASSOC_ID =  " + id + " AND NAME = " + name, null);
+        db.update(SEC_TABLE, contentValues, "ID = ?", new String[] {id});
+        return true;
+    }
+    public boolean updateStatus(String id , int i){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        if(i == 0) {
+            contentValues.put(COL_MAIN_3, "DONE");
+        }else if(i == 1){
+            contentValues.put(COL_MAIN_3, "WAITING");
+        }
+        db.update(MAIN_TABLE, contentValues, "ID = ?", new String[]{id});
+        return true;
+    }
+
+    public boolean again(String id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_SEC_4, 0);
+        db.update(SEC_TABLE, contentValues, "ASSOC_ID = ?", new String[] {id});
         return true;
     }
 

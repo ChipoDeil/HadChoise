@@ -27,6 +27,8 @@ public class DelScreen extends AppCompatActivity {
     ListView delList = null;
     DBMain db = null;
     Button backDel = null;
+    ArrayAdapter<String> adapter;
+    Intent backIntent;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -68,19 +70,21 @@ public class DelScreen extends AppCompatActivity {
             hasMoreNames = res.moveToNext();
             i++;
         }
-        final DBMain db = new DBMain(this);
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, names);
+        db = new DBMain(this);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, names);
         delList.setAdapter(adapter);
         delList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 String name = adapter.getItem(position);
-                //db.deleteData(name);
+                db.deleteData(name);
+                showList();
+                Toast.makeText(DelScreen.this, "Тест под названием "+ name + " удален!", Toast.LENGTH_SHORT).show();
             }
         });
         backDel = (Button)findViewById(R.id.backDel);
-        final Intent backIntent = new Intent(this, MainScreen.class);
+        backIntent = new Intent(this, MainScreen.class);
         backDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -18,6 +18,8 @@ public class ProcessScreen extends AppCompatActivity {
     Items[] items;
     TextView tv;
     String id;
+    String[] forScore;
+    Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +36,7 @@ public class ProcessScreen extends AppCompatActivity {
         });
         DBMain db = new DBMain(this);
         Intent getId = getIntent();
-        String id = getId.getExtras().getString("id");
+        id = getId.getExtras().getString("id");
         String[] itemsName = new String[db.getCountItems(id)];
         String[] itemsScore = new String[db.getCountItems(id)];
         Cursor resItems = db.getItems(id);
@@ -80,17 +82,24 @@ public class ProcessScreen extends AppCompatActivity {
                 }
                 if(!a){
                     DBMain db = new DBMain(ProcessScreen.this);
-                    for (int i = 0; i < items.length; i++){
-                        db.updateScore(items[i].getName(), id, items[i].getScore());
-                    }
                     Cursor res = db.getItems(id);
+                    forScore = new String[db.getCountItems(id)];
                     boolean hasMoreItems = res.moveToFirst();
-                    String score = "123";
                     while(hasMoreItems){
-                        score = res.getString(res.getColumnIndex("SCORE"));
+                        for (int j = 0; j < items.length; j++){
+                            if ((items[j].getName()).equals(res.getString(res.getColumnIndex("NAME")))){
+                                forScore[j] = res.getString(res.getColumnIndex("ID"));
+                            }
+                        }
                         hasMoreItems = res.moveToNext();
                     }
-                    tv.setText(score);
+                    for(int i = 0; i < items.length; i++){
+                        db.updateScore(forScore[i], items[i].getScore());
+                    }
+                    db.updateStatus(id, 0);
+                    intent = new Intent(ProcessScreen.this, FinishScreen.class);
+                    intent.putExtra("ID", id);
+                    startActivity(intent);
                 }
             }
         });
@@ -116,9 +125,24 @@ public class ProcessScreen extends AppCompatActivity {
                 }
                 if(!a){
                     DBMain db = new DBMain(ProcessScreen.this);
-                    for (int i = 0; i < items.length; i++){
-                        db.updateScore(items[i].getName(), id, items[i].getScore());
+                    Cursor res = db.getItems(id);
+                    forScore = new String[db.getCountItems(id)];
+                    boolean hasMoreItems = res.moveToFirst();
+                    while(hasMoreItems){
+                        for (int j = 0; j < items.length; j++){
+                            if ((items[j].getName()).equals(res.getString(res.getColumnIndex("NAME")))){
+                                forScore[j] = res.getString(res.getColumnIndex("ID"));
+                            }
+                        }
+                        hasMoreItems = res.moveToNext();
                     }
+                    for(int i = 0; i < items.length; i++){
+                        db.updateScore(forScore[i], items[i].getScore());
+                    }
+                    db.updateStatus(id, 0);
+                    intent = new Intent(ProcessScreen.this, FinishScreen.class);
+                    intent.putExtra("ID", id);
+                    startActivity(intent);
                 }
             }
         });

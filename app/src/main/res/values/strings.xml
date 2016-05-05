@@ -6,4 +6,5 @@
     <string name="title_activity_del_screen">DelScreen</string>
     <string name="title_activity_select_sreen">SelectSreen</string>
     <string name="title_activity_process_screen">ProcessScreen</string>
+    <string name="title_activity_finish_screen">FinishScreen</string>
 </resources>

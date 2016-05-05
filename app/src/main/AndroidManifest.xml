@@ -45,6 +45,10 @@
         <activity
             android:name=".ProcessScreen"
             android:label="@string/title_activity_process_screen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".FinishScreen"
+            android:label="@string/title_activity_finish_screen"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

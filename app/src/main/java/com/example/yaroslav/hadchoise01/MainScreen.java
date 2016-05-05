@@ -32,10 +32,13 @@ public class MainScreen extends AppCompatActivity {
     Intent intentDel = null;
     Intent intentInfo = null;
     Intent intentSelect = null;
+    Intent intentFinish = null;
     ListView namesList = null;
     DBMain db = null;
     TextView tv = null;
     int i = 0;
+    String id;
+    String status;
     ArrayAdapter<String> namesAdapter = null;
 
     @Override
@@ -65,23 +68,10 @@ public class MainScreen extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     private void listeners(){
         intentAdd = new Intent(this, AddScreen.class);
+        intentFinish = new Intent(this, FinishScreen.class);
         intentDel = new Intent(this, DelScreen.class);
         intentInfo = new Intent(this, InfoScreen.class);
         add = (Button) findViewById(R.id.add);
@@ -171,8 +161,24 @@ public class MainScreen extends AppCompatActivity {
                 String name = namesAdapter.getItem(position);
                 //Toast.makeText(MainScreen.this, name, Toast.LENGTH_LONG).show();
                 intentSelect = new Intent(MainScreen.this, SelectSreen.class);
-                intentSelect.putExtra("testName", name);
-                startActivity(intentSelect);
+                DBMain db = new DBMain(MainScreen.this);
+                Cursor res  = db.getNames();
+                boolean hasMoreNames = res.moveToFirst();
+                String idTest = "";
+                while(hasMoreNames){
+                    if (name.equals(res.getString(res.getColumnIndex("NAME")))) {
+                        idTest = res.getString(res.getColumnIndex("ID"));
+                        status = res.getString(res.getColumnIndex("STATUS"));
+                    }
+                    hasMoreNames = res.moveToNext();
+                }
+                if(status.equals("DONE")){
+                    intentFinish.putExtra("ID", idTest);
+                    startActivity(intentFinish);
+                }else {
+                    intentSelect.putExtra("testName", name);
+                    startActivity(intentSelect);
+                }
             }
         });
 

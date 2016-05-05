@@ -37,13 +37,16 @@ public class SelectSreen extends AppCompatActivity {
         TextView tv = (TextView)findViewById(R.id.nameTest);
         tv.setText(name);
         String id = "";
+        String status = "";
         DBMain db = new DBMain(this);
         Cursor res  = db.getNames();
         //getting id
         boolean hasMoreNames = res.moveToFirst();
         while(hasMoreNames){
-            if (name.equals(res.getString(res.getColumnIndex("NAME"))))
+            if (name.equals(res.getString(res.getColumnIndex("NAME")))) {
                 id = res.getString(res.getColumnIndex("ID"));
+                status = res.getString(res.getColumnIndex("STATUS"));
+            }
             hasMoreNames = res.moveToNext();
         }
         String[] itemsName = new String[db.getCountItems(id)];
@@ -69,7 +72,6 @@ public class SelectSreen extends AppCompatActivity {
                 startActivity(processItent);
             }
         });
-
     }
 
 }
