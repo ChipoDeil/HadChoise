@@ -1,5 +1,6 @@
 package com.example.yaroslav.hadchoise01;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.LinearGradient;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ public class AddScreen extends AppCompatActivity {
     DBMain db = null;
     boolean a;
     int i;
+    LinearLayout answ;
     boolean isTheSame;
     String[] names;
     @Override
@@ -31,13 +33,22 @@ public class AddScreen extends AppCompatActivity {
         setContentView(R.layout.activity_add_screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setTitle("HardChoice");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        final Intent backIntent = new Intent(this, MainScreen.class);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(backIntent);
+            }
+        });
+        answ = (LinearLayout)findViewById(R.id.vars);
+        EditText et = new EditText(AddScreen.this);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 EditText et = new EditText(AddScreen.this);
-                LinearLayout answ = (LinearLayout)findViewById(R.id.vars);
                 answ.addView(et);
             }
         });

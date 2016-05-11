@@ -8,11 +8,14 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
 public class ProcessScreen extends AppCompatActivity {
     int i;
+    Animation animOne;
     Button itemOne;
     Button itemTwo;
     Items[] items;
@@ -26,14 +29,7 @@ public class ProcessScreen extends AppCompatActivity {
         setContentView(R.layout.activity_process_screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Что-то где-то
-            }
-        });
+        getSupportActionBar().setTitle("HardChoice");
         DBMain db = new DBMain(this);
         Intent getId = getIntent();
         id = getId.getExtras().getString("id");
@@ -65,14 +61,14 @@ public class ProcessScreen extends AppCompatActivity {
             public void onClick(View v) {
                 boolean a = false;
                 String name = itemTwo.getText().toString();
-                for (int i = 0; i < items.length; i++){
-                    if (name.equals(items[i].getName())){
-                        items[i].setScore(items[i].getScore()+1);
+                for (int i = 0; i < items.length; i++) {
+                    if (name.equals(items[i].getName())) {
+                        items[i].setScore(items[i].getScore() + 1);
                     }
                 }
-                for(int i = 0; i < items.length; i++){
-                    for (int j = 0; j < items.length; j++){
-                        if (items[i].getScore() == items[j].getScore() && i != j){
+                for (int i = 0; i < items.length; i++) {
+                    for (int j = 0; j < items.length; j++) {
+                        if (items[i].getScore() == items[j].getScore() && i != j) {
                             itemOne.setText(items[i].getName());
                             itemTwo.setText(items[j].getName());
                             a = true;
@@ -80,20 +76,20 @@ public class ProcessScreen extends AppCompatActivity {
                         }
                     }
                 }
-                if(!a){
+                if (!a) {
                     DBMain db = new DBMain(ProcessScreen.this);
                     Cursor res = db.getItems(id);
                     forScore = new String[db.getCountItems(id)];
                     boolean hasMoreItems = res.moveToFirst();
-                    while(hasMoreItems){
-                        for (int j = 0; j < items.length; j++){
-                            if ((items[j].getName()).equals(res.getString(res.getColumnIndex("NAME")))){
+                    while (hasMoreItems) {
+                        for (int j = 0; j < items.length; j++) {
+                            if ((items[j].getName()).equals(res.getString(res.getColumnIndex("NAME")))) {
                                 forScore[j] = res.getString(res.getColumnIndex("ID"));
                             }
                         }
                         hasMoreItems = res.moveToNext();
                     }
-                    for(int i = 0; i < items.length; i++){
+                    for (int i = 0; i < items.length; i++) {
                         db.updateScore(forScore[i], items[i].getScore());
                     }
                     db.updateStatus(id, 0);
@@ -108,14 +104,14 @@ public class ProcessScreen extends AppCompatActivity {
             public void onClick(View v) {
                 boolean a = false;
                 String name = itemOne.getText().toString();
-                for (int i = 0; i < items.length; i++){
-                    if (name.equals(items[i].getName())){
-                        items[i].setScore(items[i].getScore()+1);
+                for (int i = 0; i < items.length; i++) {
+                    if (name.equals(items[i].getName())) {
+                        items[i].setScore(items[i].getScore() + 1);
                     }
                 }
-                for(int i = 0; i < items.length; i++){
-                    for (int j = 0; j < items.length; j++){
-                        if (items[i].getScore() == items[j].getScore() && i != j){
+                for (int i = 0; i < items.length; i++) {
+                    for (int j = 0; j < items.length; j++) {
+                        if (items[i].getScore() == items[j].getScore() && i != j) {
                             itemOne.setText(items[i].getName());
                             itemTwo.setText(items[j].getName());
                             a = true;
@@ -123,20 +119,20 @@ public class ProcessScreen extends AppCompatActivity {
                         }
                     }
                 }
-                if(!a){
+                if (!a) {
                     DBMain db = new DBMain(ProcessScreen.this);
                     Cursor res = db.getItems(id);
                     forScore = new String[db.getCountItems(id)];
                     boolean hasMoreItems = res.moveToFirst();
-                    while(hasMoreItems){
-                        for (int j = 0; j < items.length; j++){
-                            if ((items[j].getName()).equals(res.getString(res.getColumnIndex("NAME")))){
+                    while (hasMoreItems) {
+                        for (int j = 0; j < items.length; j++) {
+                            if ((items[j].getName()).equals(res.getString(res.getColumnIndex("NAME")))) {
                                 forScore[j] = res.getString(res.getColumnIndex("ID"));
                             }
                         }
                         hasMoreItems = res.moveToNext();
                     }
-                    for(int i = 0; i < items.length; i++){
+                    for (int i = 0; i < items.length; i++) {
                         db.updateScore(forScore[i], items[i].getScore());
                     }
                     db.updateStatus(id, 0);

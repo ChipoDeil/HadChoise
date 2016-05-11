@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fbutton="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,7 +13,8 @@
     tools:context="com.example.yaroslav.hadchoise01.ProcessScreen"
     tools:showIn="@layout/activity_process_screen">
 
-    <Button
+    <com.example.yaroslav.hadchoise01.FButton
+        android:textColor="@android:color/white"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="New Button"
@@ -20,22 +22,34 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="175dp" />
+        android:layout_marginTop="175dp"
+        fbutton:buttonColor="@color/fbutton_color_peter_river"
+        fbutton:shadowColor="@color/fbutton_color_belize_hole"
+        fbutton:shadowEnabled="true"
+        fbutton:shadowHeight="5dp"
+        fbutton:cornerRadius="5dp"/>
 
-    <Button
+    <com.example.yaroslav.hadchoise01.FButton
+        android:textColor="@android:color/white"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="New Button"
         android:id="@+id/itemTwo"
         android:layout_alignTop="@+id/itemOne"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        fbutton:buttonColor="@color/fbutton_color_peter_river"
+        fbutton:shadowColor="@color/fbutton_color_belize_hole"
+        fbutton:shadowEnabled="true"
+        fbutton:shadowHeight="5dp"
+        fbutton:cornerRadius="5dp"
+        />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Выберите из двух:"
+        android:text="Выберите приемущественный:"
         android:id="@+id/textView6"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />

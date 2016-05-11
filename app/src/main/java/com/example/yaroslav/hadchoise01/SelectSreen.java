@@ -24,12 +24,13 @@ public class SelectSreen extends AppCompatActivity {
         setContentView(R.layout.activity_select_sreen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        getSupportActionBar().setTitle("HardChoice");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        final Intent backIntent = new Intent(this, MainScreen.class);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
+            public void onClick(View v) {
+                startActivity(backIntent);
             }
         });
         Intent intent = getIntent();
@@ -61,15 +62,15 @@ public class SelectSreen extends AppCompatActivity {
             i++;
         }
         ListView itemsList = (ListView)findViewById(R.id.itemsList);
-        itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, itemsName);
+        itemsAdapter = new ArrayAdapter<String>(this, R.layout.my_list_item, itemsName);
         itemsList.setAdapter(itemsAdapter);
         startTest = (Button)findViewById(R.id.startTest);
-        final Intent processItent = new Intent(this, ProcessScreen.class);
-        processItent.putExtra("id", id);
+        final Intent processIntent = new Intent(this, ProcessScreen.class);
+        processIntent.putExtra("id", id);
         startTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(processItent);
+                startActivity(processIntent);
             }
         });
     }

@@ -3,12 +3,12 @@ package com.example.yaroslav.hadchoise01;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.Arrays;
@@ -16,7 +16,10 @@ import java.util.Arrays;
 public class FinishScreen extends AppCompatActivity {
     Items[] items;
     Intent intentSelect;
-    TextView tv;
+    ListView lvName;
+    ListView lvScore;
+    ArrayAdapter<String> adapterName;
+    ArrayAdapter<String> adapterScore;
     String id;
     Button back;
     Button again;
@@ -27,13 +30,13 @@ public class FinishScreen extends AppCompatActivity {
         setContentView(R.layout.activity_finish_screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        getSupportActionBar().setTitle("HardChoice");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        final Intent backIntent = new Intent(this, MainScreen.class);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onClick(View v) {
+                startActivity(backIntent);
             }
         });
         Intent intent = getIntent();
@@ -53,15 +56,20 @@ public class FinishScreen extends AppCompatActivity {
         intentSelect = new Intent(this, SelectSreen.class);
         intentBack = new Intent(this, MainScreen.class);
         Arrays.sort(score);
-        tv = (TextView)findViewById(R.id.results);
+        lvName = (ListView)findViewById(R.id.resultsName);
+        lvScore = (ListView)findViewById(R.id.resultsScore);
         int g = 1;
+        String[] namesForLv = new String[score.length];
+        String[] scoreForLv = new String[score.length];
         for(int j = score.length-1; j != -1; j--){
-            if(j != score.length-1)
-            tv.setText(tv.getText() + "" + g + ". " + getName(score[j]) + "  Очков: " + score[j] + "\n");
-            else
-            tv.setText("" + g + ". " + getName(score[j]) + "  Очков: " + score[j] + "\n");
+            namesForLv[g-1] = g + ". " + getName(score[j]);
+            scoreForLv[g-1] = "Очков: "+score[j]+"";
             g++;
         }
+        adapterName = new ArrayAdapter<String>(this, R.layout.my_list_item, namesForLv);
+        lvName.setAdapter(adapterName);
+        adapterScore = new ArrayAdapter<String>(this, R.layout.my_list_item, scoreForLv);
+        lvScore.setAdapter(adapterScore);
         again = (Button)findViewById(R.id.again);
         again.setOnClickListener(new View.OnClickListener() {
             @Override

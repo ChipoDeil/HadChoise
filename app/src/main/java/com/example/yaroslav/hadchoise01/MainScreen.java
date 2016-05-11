@@ -34,6 +34,7 @@ public class MainScreen extends AppCompatActivity {
     Intent intentSelect = null;
     Intent intentFinish = null;
     ListView namesList = null;
+    TextView textList;
     DBMain db = null;
     TextView tv = null;
     int i = 0;
@@ -47,98 +48,33 @@ public class MainScreen extends AppCompatActivity {
         setContentView(R.layout.activity_main_screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         showNames();
         listeners();
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main_screen, menu);
-        return true;
-    }
-
 
     private void listeners(){
         intentAdd = new Intent(this, AddScreen.class);
         intentFinish = new Intent(this, FinishScreen.class);
         intentDel = new Intent(this, DelScreen.class);
-        intentInfo = new Intent(this, InfoScreen.class);
         add = (Button) findViewById(R.id.add);
         info = (Button) findViewById(R.id.info);
         delete = (Button) findViewById(R.id.delete);
         animAdd = AnimationUtils.loadAnimation(this, R.anim.scale);
         animDel = AnimationUtils.loadAnimation(this, R.anim.scale);
         animInfo = AnimationUtils.loadAnimation(this, R.anim.scale);
-        add.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) {add.startAnimation(animAdd);}});
-        animAdd.setAnimationListener(new Animation.AnimationListener() {
+        add.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onAnimationStart(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
+            public void onClick(View v) {
                 startActivity(intentAdd);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
             }
         });
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                delete.startAnimation(animDel);
-            }
-        });
-        animDel.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
                 startActivity(intentDel);
             }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
         });
-        info.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                info.startAnimation(animInfo);
-            }
-        });
-        animInfo.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
 
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                showNames();
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
     }
     String[] names;
     public void showNames(){
@@ -148,12 +84,27 @@ public class MainScreen extends AppCompatActivity {
         names = new String[db.getCount()];
         i = 0;
         boolean hasMoreNames = res.moveToFirst();
-        while(hasMoreNames){
+        while (hasMoreNames) {
             names[i] = res.getString(res.getColumnIndex("NAME"));
             hasMoreNames = res.moveToNext();
             i++;
         }
-        namesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, names);
+        if (names.length == 0 && db.getCountItems("1") == 0) {
+            db.insertData("Мой любимый фрукт", new String[]{"Апельсин", "Банан", "Яблоко", "Гранат", "Слива", "Киви", "Ананас"});
+            db.insertData("Мой любимый жанр музыки", new String[]{"Рок", "Реп", "Поп", "Метал", "Классика", "Инди", "Диско", "Джаз"});
+            names = new String[db.getCount()];
+            i = 0;
+            hasMoreNames = res.moveToFirst();
+            while (hasMoreNames) {
+                names[i] = res.getString(res.getColumnIndex("NAME"));
+                hasMoreNames = res.moveToNext();
+                i++;
+            }
+        }else if(names.length == 0 && db.getCountItems("1") != 0){
+            textList = (TextView)findViewById(R.id.textList);
+            textList.setText("У вас пока нет тестов!");
+        }
+        namesAdapter = new ArrayAdapter<String>(this, R.layout.my_list_item, names);
         namesList.setAdapter(namesAdapter);
         namesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

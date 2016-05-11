@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fbutton="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -88,11 +89,17 @@
         android:layout_marginTop="15dp" />
     </LinearLayout>
     </ScrollView>
-    <Button
+    <com.example.yaroslav.hadchoise01.FButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/addTest"
         android:layout_below="@+id/scrollView"
         android:layout_centerHorizontal="true"
-        android:text="Добавить тест"/>
+        android:text="Добавить тест"
+        fbutton:buttonColor="@color/fbutton_color_peter_river"
+        fbutton:shadowColor="@color/fbutton_color_belize_hole"
+        fbutton:shadowEnabled="true"
+        fbutton:shadowHeight="5dp"
+        fbutton:cornerRadius="5dp"
+        android:textColor="@android:color/white"/>
 </RelativeLayout>

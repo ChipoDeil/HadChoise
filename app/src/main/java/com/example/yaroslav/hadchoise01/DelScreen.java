@@ -41,14 +41,13 @@ public class DelScreen extends AppCompatActivity {
         setContentView(R.layout.activity_del_screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //toolbar.set
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        getSupportActionBar().setTitle("HardChoice");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        backIntent = new Intent(this, MainScreen.class);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onClick(View v) {
+                startActivity(backIntent);
             }
         });
         showList();
@@ -71,7 +70,7 @@ public class DelScreen extends AppCompatActivity {
             i++;
         }
         db = new DBMain(this);
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, names);
+        adapter = new ArrayAdapter<String>(this, R.layout.my_list_item, names);
         delList.setAdapter(adapter);
         delList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

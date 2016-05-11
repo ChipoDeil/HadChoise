@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fbutton="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,52 +13,55 @@
     tools:context="com.example.yaroslav.hadchoise01.MainScreen"
     tools:showIn="@layout/activity_main_screen">
 
-    <Button
+    <com.example.yaroslav.hadchoise01.FButton
+        android:textColor="@android:color/white"
         android:layout_width="150dp"
         android:layout_height="60dp"
         android:text="Добавить новый"
         android:id="@+id/add"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        fbutton:buttonColor="@color/fbutton_color_emerald"
+        fbutton:shadowColor="@color/fbutton_color_nephritis"
+        fbutton:shadowEnabled="true"
+        fbutton:shadowHeight="5dp"
+        fbutton:cornerRadius="5dp"/>
 
-    <Button
+    <com.example.yaroslav.hadchoise01.FButton
         android:layout_width="150dp"
         android:layout_height="60dp"
         android:text="Удалить тест"
+        android:textColor="@android:color/white"
         android:id="@+id/delete"
         android:layout_alignBottom="@+id/add"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Информация"
-        android:id="@+id/info"
-        android:layout_marginBottom="49dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentEnd="true"
+        fbutton:buttonColor="@color/fbutton_color_alizarin"
+        fbutton:shadowColor="@color/fbutton_color_pomegranate"
+        fbutton:shadowEnabled="true"
+        fbutton:shadowHeight="5dp"
+        fbutton:cornerRadius="5dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Список тестов:"
-        android:id="@+id/textView"
+        android:id="@+id/textList"
         android:layout_marginTop="20dp"
         android:layout_below="@+id/add"
         android:layout_centerHorizontal="true" />
 
     <ListView
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:id="@+id/namesList"
-        android:layout_above="@+id/info"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/textView" />
+        android:layout_below="@+id/textList" />
 
 </RelativeLayout>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fbutton="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -15,38 +16,62 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@android:color/black"
-        android:text="New Text"
-        android:id="@+id/results"
-        android:layout_below="@+id/textView7"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Результаты теста:"
         android:id="@+id/textView7"
+        android:height="50dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
-    <Button
+    <com.example.yaroslav.hadchoise01.FButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Пройти заново"
         android:id="@+id/again"
-        android:layout_below="@+id/results"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="53dp" />
+        fbutton:buttonColor="@color/fbutton_color_peter_river"
+        fbutton:shadowColor="@color/fbutton_color_belize_hole"
+        fbutton:shadowEnabled="true"
+        fbutton:shadowHeight="5dp"
+        fbutton:cornerRadius="5dp"
+        android:textColor="@android:color/white"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
-    <Button
+    <com.example.yaroslav.hadchoise01.FButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="На главную"
         android:id="@+id/back"
-        android:layout_below="@+id/again"
+        fbutton:buttonColor="@color/fbutton_color_peter_river"
+        fbutton:shadowColor="@color/fbutton_color_belize_hole"
+        fbutton:shadowEnabled="true"
+        fbutton:shadowHeight="5dp"
+        fbutton:cornerRadius="5dp"
+        android:textColor="@android:color/white"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp" />
+        android:layout_marginBottom="144dp" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/resultsName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/again"
+        android:layout_toLeftOf="@+id/resultsScore"
+        android:layout_toStartOf="@+id/resultsScore"
+        android:layout_below="@+id/textView7" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/resultsScore"
+        android:layout_below="@+id/textView7"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/back"
+        android:layout_above="@+id/again" />
+
+
 </RelativeLayout>
