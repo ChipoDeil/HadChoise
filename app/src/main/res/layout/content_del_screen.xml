@@ -27,15 +27,14 @@
         android:layout_height="wrap_content"
         android:text="Назад"
         android:id="@+id/backDel"
-        android:layout_marginBottom="51dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         fbutton:buttonColor="@color/fbutton_color_peter_river"
         fbutton:shadowColor="@color/fbutton_color_belize_hole"
         fbutton:shadowEnabled="true"
         fbutton:shadowHeight="5dp"
         fbutton:cornerRadius="5dp"
-        android:textColor="@android:color/white"/>
+        android:textColor="@android:color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
     <ListView
         android:layout_width="wrap_content"

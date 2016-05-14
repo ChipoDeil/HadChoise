@@ -66,9 +66,9 @@ public class FinishScreen extends AppCompatActivity {
             scoreForLv[g-1] = "Очков: "+score[j]+"";
             g++;
         }
-        adapterName = new ArrayAdapter<String>(this, R.layout.my_list_item, namesForLv);
+        adapterName = new ArrayAdapter<String>(this, R.layout.list_item_for_results_right, namesForLv);
         lvName.setAdapter(adapterName);
-        adapterScore = new ArrayAdapter<String>(this, R.layout.my_list_item, scoreForLv);
+        adapterScore = new ArrayAdapter<String>(this, R.layout.list_item_for_results_right, scoreForLv);
         lvScore.setAdapter(adapterScore);
         again = (Button)findViewById(R.id.again);
         again.setOnClickListener(new View.OnClickListener() {

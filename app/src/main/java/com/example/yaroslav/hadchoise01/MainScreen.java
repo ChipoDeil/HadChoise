@@ -92,6 +92,9 @@ public class MainScreen extends AppCompatActivity {
         if (names.length == 0 && db.getCountItems("1") == 0) {
             db.insertData("Мой любимый фрукт", new String[]{"Апельсин", "Банан", "Яблоко", "Гранат", "Слива", "Киви", "Ананас"});
             db.insertData("Мой любимый жанр музыки", new String[]{"Рок", "Реп", "Поп", "Метал", "Классика", "Инди", "Диско", "Джаз"});
+            db.insertData("Игровые приложения", new String[]{ "Игра \"Мануфактура\"", "Animalz Village", "RTS", "Тетрис", "Быки коровы", "Memory", "Rock Hero", "Army Dash", "Игра \"Rooms\""});
+            db.insertData("Неигровые приложения", new String[]{ "Столицы мира", "English verbs", "Преступление и наказание", "QRest",
+                    "3D Box", "Push up", "Калькулятор", "Awesome Pills", "Органайзер", "Hard Choice"});
             names = new String[db.getCount()];
             i = 0;
             hasMoreNames = res.moveToFirst();
